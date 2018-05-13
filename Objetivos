@@ -23,7 +23,7 @@
         - Roberts                   ok
         - Isotrópico                ok       
     Dithering:
-        - Básico        
+        - Básico                    ok
         - Aleatório
         - Periódico
         - Aperiódico(Floyd-Steimberg)
