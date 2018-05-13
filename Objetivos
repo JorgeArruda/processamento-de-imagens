@@ -12,6 +12,11 @@
         - Histograma                ok
         - Histograma acumulado      ok
         - Equalização               ok
+    Filtros:
+        - Passa-baixa               ok
+        - Passa-alta                ok
+        - Mediana                   ok
+        - Gaussiana
     Realce bordas:
         - Sobel          
         - Prewitt           
