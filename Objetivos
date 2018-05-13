@@ -20,7 +20,7 @@
     Realce bordas:
         - Sobel                     ok
         - Prewitt                   ok
-        - Roberts            
+        - Roberts                   ok
         - Isotrópico             
     Dithering:
         - Básico        
