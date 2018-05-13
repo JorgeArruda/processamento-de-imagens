@@ -10,17 +10,12 @@ def image_add(image01, image02):
         result = numpy.array(image01)
         max_linha = image01.shape[0]
         max_coluna = image01.shape[1]
-        cv2.imshow("Image01", image01) # Mostrar imagem
-        cv2.imshow("Image02", image02) # Mostrar imagem
         for linha in range(0,max_linha):
             for coluna in range(0,max_coluna): 
                 (b0, g0, r0) = image01[linha,coluna]
                 (b1, g1, r1) = image02[linha,coluna]
                 #print "Lin: ",linha," Colu: ",coluna, " (b0, g0, r0): ",(b0, g0, r0)," (b1, g1, r1): ",(b1, g1, r1)
                 result[linha,coluna] = ( 255 if b0+b1 > 255 else b0+b1, 255 if b0+b1 > 255 else g0+g1, 255 if b0+b1 > 255 else r0+r1)
-
-        cv2.imshow("adicao:", result) # Mostrar imagem
-        cv2.waitKey(0)
         return result
     else:
         print('As imagens não possuem tamanhos iguais')
@@ -38,8 +33,6 @@ def image_add_01(image01, image02):
             qtd_canais = image01.shape[2]
 
         print('Linhas X Colunas: ', image01.shape[0],'  ',image02.shape[1])
-        cv2.imshow("Image01", image01) # Mostrar imagem
-        cv2.imshow("Image02", image02) # Mostrar imagem
 
         #temp = [ [ [0] * image01.shape[2] ]  * image01.shape[1] ] * image01.shape[0] # array[num. de linhas][num. de colunas][num. de canais]
         temp = []
@@ -78,11 +71,7 @@ def image_add_01(image01, image02):
                         result[linha,coluna] = constante[canal] * (temp[linha][coluna][canal] - min[canal])
                     else:
                         result[linha,coluna,canal] = constante[canal] * (temp[linha][coluna][canal] - min[canal])
-                    
-
-        cv2.imshow("adicao normalizada:", result) # Mostrar imagem
-        cv2.waitKey(0)
-        
+                
         return result
     else:
         print('As imagens não possuem tamanhos iguais')
@@ -116,17 +105,12 @@ def image_mult(image01, image02):
         result = numpy.array(image01)
         max_linha = image01.shape[0]
         max_coluna = image01.shape[1]
-        cv2.imshow("Image01", image01) # Mostrar imagem
-        cv2.imshow("Image02", image02) # Mostrar imagem
         for linha in range(0,max_linha):
             for coluna in range(0,max_coluna): 
                 (b0, g0, r0) = image01[linha,coluna]
                 (b1, g1, r1) = image02[linha,coluna]
                 #print "Lin: ",linha," Colu: ",coluna, " (b0, g0, r0): ",(b0, g0, r0)," (b1, g1, r1): ",(b1, g1, r1)
                 result[linha,coluna] = ( (b0*b1)%256, (g0*g1)%256, (r0*r1)%256)
-
-        cv2.imshow("image01 * image02", result) # Mostrar imagem
-        cv2.waitKey(0)
         return result
     else:
         print('As imagens não possuem tamanhos iguais')

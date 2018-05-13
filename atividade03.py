@@ -114,7 +114,7 @@ def filtro_gaussiano(image):
     #a = a.reshape((5, 2))
     print(" Imagem ", image.shape)
     image = addZero(image)
-    print("\n Imagem(addZeros) ", image.shape)
+    # print("\n Imagem(addZeros) ", image.shape)
 
     mascara = (1,2,1, 2,4,2, 1,2,1)
     if len(image.shape) == 2:
@@ -135,9 +135,10 @@ def filtro_gaussiano(image):
                     linha03 = int(image[linha+1,coluna-1, canal])*mascara[6] + int(image[linha+1,coluna, canal])*mascara[7]  + int(image[linha+1,coluna+1, canal])*mascara[8] 
                     result[linha-1,coluna-1,canal] = (linha01+linha02+linha03)/16
     
-    cv2.imshow('Imagem', image)
-    cv2.imshow('Filtro gaussiano - ----------', result)
-    cv2.waitKey(0)
+    # cv2.imshow('Imagem', image)
+    # cv2.imshow('Filtro gaussiano - ----------', result)
+    # cv2.waitKey(0)
+    return result
 
 def filtro_passaalta(image):
     print("Result dimensions ",image.shape)
@@ -201,15 +202,17 @@ def filtro_convolucao(image):
     cv2.imshow('Filtro convolucao - ----------', result)
     cv2.waitKey(0)
     
-#filtro_passabaixa(foto_01)
-#filtro_mediana(foto_01) 
-filtro_convolucao(foto_01)
-filtro_gaussiano(foto_01)
 
-"""print "Teste"
-result = numpy.zeros((3,3,3), numpy.uint8)
-for linha in range(result.shape[0]):
-    for coluna in range(result.shape[1]):
-        result[linha, coluna] = 9
-print result
-addZero(result)"""
+if (__name__ == '__main'):
+    #filtro_passabaixa(foto_01)
+    #filtro_mediana(foto_01) 
+    filtro_convolucao(foto_01)
+    filtro_gaussiano(foto_01)
+
+    """print "Teste"
+    result = numpy.zeros((3,3,3), numpy.uint8)
+    for linha in range(result.shape[0]):
+        for coluna in range(result.shape[1]):
+            result[linha, coluna] = 9
+    print result
+    addZero(result)"""
