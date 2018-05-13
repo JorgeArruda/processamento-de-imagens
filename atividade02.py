@@ -1,8 +1,8 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Atividade 02 Histograma
 import numpy
-import cv2
+from cv2 import cv2
 import matplotlib.pyplot as plt
 #import pandas
 

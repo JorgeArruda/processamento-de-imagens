@@ -16,7 +16,7 @@
         - Passa-baixa               ok
         - Passa-alta                ok
         - Mediana                   ok
-        - Gaussiana
+        - Gaussiana                 ok
     Realce bordas:
         - Sobel          
         - Prewitt           
