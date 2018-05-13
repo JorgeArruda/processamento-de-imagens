@@ -19,7 +19,7 @@
         - Gaussiana                 ok
     Realce bordas:
         - Sobel                     ok
-        - Prewitt           
+        - Prewitt                   ok
         - Roberts            
         - Isotrópico             
     Dithering:
