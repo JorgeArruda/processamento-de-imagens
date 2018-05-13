@@ -21,7 +21,7 @@
         - Sobel                     ok
         - Prewitt                   ok
         - Roberts                   ok
-        - Isotrópico             
+        - Isotrópico                ok       
     Dithering:
         - Básico        
         - Aleatório

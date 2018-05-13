@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import numpy
 from cv2 import cv2
+import math
 from atividade01 import image_add_01, image_add, image_mult
 from atividade03 import filtro_gaussiano
 # Atividade 04 Realce de bordas:
@@ -227,6 +228,68 @@ def filtro_roberts_horizontal(image):
                     result[linha-1,coluna-1,canal] = abs(linha01+linha02+linha03)
     return result
 
+def filtro_isotropico_vertical(image):
+    print("Result dimensions ",image.shape)
+    #a = np.array([1, 4, 5, 8], float)
+    #a = a.reshape((5, 2))
+    print(" Imagem ", image.shape)
+    image = addZero(image)
+    print("\n Imagem(addZeros) ", image.shape)
+    
+    mascara = (1,0,-1, 1.4142135623730951,0,-1.4142135623730951, 1,0,-1)
+    # div = 1
+    div = 0.292893219
+    if len(image.shape) == 2:
+        result = numpy.zeros((image.shape[0]-2,image.shape[1]-2), numpy.uint8)
+        for linha in range(1,image.shape[0]-1):
+            for coluna in range(1,image.shape[1]-1):
+                linha01 = int(image[linha-1,coluna-1])*mascara[0] + int(image[linha-1,coluna])*mascara[1] + int(image[linha-1,coluna+1])*mascara[2]
+                linha02 = int(image[linha,coluna-1])*mascara[3]   + int(image[linha,coluna])*mascara[4]   + int(image[linha,coluna+1])*mascara[5]
+                linha03 = int(image[linha+1,coluna-1])*mascara[6] + int(image[linha+1,coluna])*mascara[6] + int(image[linha+1,coluna+1])*mascara[8]
+                result[linha-1,coluna-1] = math.floor(abs(linha01+linha02+linha03)/div)
+    else:
+        result = numpy.zeros((image.shape[0]-2,image.shape[1]-2,image.shape[2]), numpy.uint8)
+        for linha in range(1,image.shape[0]-1):
+            for coluna in range(1,image.shape[1]-1):
+                for canal in range(0,image.shape[2]):
+                    linha01 = int(image[linha-1,coluna-1, canal])*mascara[0] + int(image[linha-1,coluna, canal])*mascara[1]  + int(image[linha-1,coluna+1, canal])*mascara[2] 
+                    linha02 = int(image[linha,coluna-1, canal])*mascara[3]   + int(image[linha,coluna, canal])*mascara[4]    + int(image[linha,coluna+1, canal])*mascara[5]
+                    linha03 = int(image[linha+1,coluna-1, canal])*mascara[6] + int(image[linha+1,coluna, canal])*mascara[7]  + int(image[linha+1,coluna+1, canal])*mascara[8] 
+                    result[linha-1,coluna-1,canal] = math.floor(abs(linha01+linha02+linha03)/div)
+    return result
+
+def filtro_isotropico_horizontal(image):
+    print("Result dimensions ",image.shape)
+    #a = np.array([1, 4, 5, 8], float)
+    #a = a.reshape((5, 2))
+    print(" Imagem ", image.shape)
+    image = addZero(image)
+    print("\n Imagem(addZeros) ", image.shape)
+    
+    mascara = (-1,-1.4142135623730951,-1, 0,0,0, 1,1.4142135623730951,1)
+    # div = 1
+    div = 0.292893219
+    if len(image.shape) == 2:
+        result = numpy.zeros((image.shape[0]-2,image.shape[1]-2), numpy.uint8)
+        for linha in range(1,image.shape[0]-1):
+            for coluna in range(1,image.shape[1]-1):
+                linha01 = int(image[linha-1,coluna-1])*mascara[0] + int(image[linha-1,coluna])*mascara[1] + int(image[linha-1,coluna+1])*mascara[2]
+                linha02 = int(image[linha,coluna-1])*mascara[3]   + int(image[linha,coluna])*mascara[4]   + int(image[linha,coluna+1])*mascara[5]
+                linha03 = int(image[linha+1,coluna-1])*mascara[6] + int(image[linha+1,coluna])*mascara[7] + int(image[linha+1,coluna+1])*mascara[8]
+                
+                result[linha-1,coluna-1] = math.floor(abs(linha01+linha02+linha03)/div)
+    else:
+        result = numpy.zeros((image.shape[0]-2,image.shape[1]-2,image.shape[2]), numpy.uint8)
+        for linha in range(1,image.shape[0]-1):
+            for coluna in range(1,image.shape[1]-1):
+                for canal in range(0,image.shape[2]):
+                    linha01 = int(image[linha-1,coluna-1, canal])*mascara[0] + int(image[linha-1,coluna, canal])*mascara[1]  + int(image[linha-1,coluna+1, canal])*mascara[2] 
+                    linha02 = int(image[linha,coluna-1, canal])*mascara[3]   + int(image[linha,coluna, canal])*mascara[4]    + int(image[linha,coluna+1, canal])*mascara[5]
+                    linha03 = int(image[linha+1,coluna-1, canal])*mascara[6] + int(image[linha+1,coluna, canal])*mascara[7]  + int(image[linha+1,coluna+1, canal])*mascara[8] 
+                    
+                    result[linha-1,coluna-1,canal] = math.floor(abs(linha01+linha02+linha03)/div)
+    return result
+
 
 if (__name__=='__main__s'):
     # cv2.imshow('Image', bio_01)
@@ -266,4 +329,14 @@ if (__name__=='__main__r'):
     cv2.imshow('Filtro roberts - vertical', vertical)
     sobel = image_add_01(horizontal, vertical)
     cv2.imshow('roberts normalizado - horizontal + vertical', sobel)
+    cv2.waitKey(0)
+
+if (__name__=='__main__'):
+    cv2.imshow('Image', bio_01)
+    horizontal = filtro_isotropico_horizontal(filtro_gaussiano(bio_01))
+    cv2.imshow('Filtro isotropico - horizontal', horizontal)
+    vertical = filtro_isotropico_vertical(filtro_gaussiano(bio_01))
+    cv2.imshow('Filtro isotropico - vertical', vertical)
+    sobel = image_add_01(horizontal, vertical)
+    cv2.imshow('isotropico normalizado - horizontal + vertical', sobel)
     cv2.waitKey(0)
