@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 # Atividade 01 Operações aritméticas e lógicas - Adição de Imagens
 import numpy
@@ -121,3 +121,4 @@ def image_add_03(image01, image02):
 
 
 result = image_add_03(bird, dragonite)
+result = image_add_01(bird, dragonite)

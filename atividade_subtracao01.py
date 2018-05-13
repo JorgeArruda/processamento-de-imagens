@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 # Atividade 01 Operações aritméticas e lógicas - Subtração de Imagens
 import numpy
@@ -124,7 +124,8 @@ def image_sub_03(image01, image02):
 
         cv2.imshow("Subtracao 03, normalizada", result) # Mostrar imagem
         cv2.waitKey(0)
-        
+        cv2.
+
         return result
     else:
         print 'As imagens não possuem tamanhos iguais'

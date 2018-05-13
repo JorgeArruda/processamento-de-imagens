@@ -1,0 +1,27 @@
+---Objetivos
+    Operações:
+        - Adição            ok
+        - Subtração         ok
+        - Multiplicação     ok
+        - Divisão           ok
+        - and               
+        - or
+        - xor
+        - not
+    Equalização do Histograma:    
+        - Histograma                ok
+        - Histograma acumulado      ok
+        - Equalização               ok
+    Realce bordas:
+        - Sobel          
+        - Prewitt           
+        - Roberts            
+        - Isotrópico             
+    Dithering:
+        - Básico        
+        - Aleatório
+        - Periódico
+        - Aperiódico(Floyd-Steimberg)
+    Segmentação por limiarização iterativa:
+    Segmentação por limiarização watersheds:
+    Segmentação por limiarização por Template Matching:
