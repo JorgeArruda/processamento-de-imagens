@@ -30,7 +30,7 @@ def print_array(lista):
     plt.bar(x_axis, y_axis, width=width_n, color=bar_color)
     plt.show()
 
-def calc_histogam(image):
+def calc_histogama(image):
     histograma = [0] * 256
     # Calcular o histograma, contabilizando a quantidade de pixels para cada valor de cor
     for linha in range(image.shape[0]):
@@ -40,7 +40,7 @@ def calc_histogam(image):
 
 def calc_histograma_acumulado(histograma):
     # Calcular o histograma acumulador
-    for x in range(1,256):
+    for x in range(1,len(histograma)):
         histograma[x] = histograma[x-1] + histograma[x]
     return histograma
 
@@ -56,7 +56,7 @@ def image_histograma(image):
     image = numpy.array(image)
     print('Imagem[',image.shape[0],'], qt. de pixels ',image.shape[0]*image.shape[1],':\n',image)
 
-    histograma = calc_histogam(image)
+    histograma = calc_histogama(image)
     # print('\nHistograma:\n',histograma)
     print_array(histograma)
 
@@ -76,5 +76,6 @@ def image_histograma(image):
     
     return image
 
-cv2.imshow('Image ',image_histograma(ima02))
-cv2.waitKey(0)
+if __name__=='__main__':
+    cv2.imshow('Image ',image_histograma(ima02))
+    cv2.waitKey(0)

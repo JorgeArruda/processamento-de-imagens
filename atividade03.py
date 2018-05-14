@@ -76,9 +76,7 @@ def filtro_passabaixa(image):
                     result[linha-1,coluna-1,canal] = (linha01+linha02+linha03)/9
 
     print(" Result ", result.shape)
-    cv2.imshow('Imagem', image)
-    cv2.imshow('Filtro passa baixa - Ofuscamento', result)
-    cv2.waitKey(0)
+    return result
 
 def filtro_mediana(image):
     print("Result dimensions ",image.shape)
@@ -104,9 +102,7 @@ def filtro_mediana(image):
                     roll.sort() 
                     result[linha-1,coluna-1,canal] = roll[4]
     
-    cv2.imshow('Imagem', image)
-    cv2.imshow('Filtro mediana - Ofuscamento', result)
-    cv2.waitKey(0)
+    return result
 
 def filtro_gaussiano(image):
     print("Result dimensions ",image.shape)
@@ -135,9 +131,6 @@ def filtro_gaussiano(image):
                     linha03 = int(image[linha+1,coluna-1, canal])*mascara[6] + int(image[linha+1,coluna, canal])*mascara[7]  + int(image[linha+1,coluna+1, canal])*mascara[8] 
                     result[linha-1,coluna-1,canal] = (linha01+linha02+linha03)/16
     
-    # cv2.imshow('Imagem', image)
-    # cv2.imshow('Filtro gaussiano - ----------', result)
-    # cv2.waitKey(0)
     return result
 
 def filtro_passaalta(image):
@@ -167,9 +160,7 @@ def filtro_passaalta(image):
                     linha03 = int(image[linha+1,coluna-1, canal])*mascara[6] + int(image[linha+1,coluna, canal])*mascara[7]  + int(image[linha+1,coluna+1, canal])*mascara[8] 
                     result[linha-1,coluna-1,canal] = (linha01+linha02+linha03)/9
     
-    cv2.imshow('Imagem', image)
-    cv2.imshow('Filtro Passa-alta - ----------', result)
-    cv2.waitKey(0)
+    return result
 
 def filtro_convolucao(image):
     print("Result dimensions ",image.shape)
@@ -197,10 +188,7 @@ def filtro_convolucao(image):
                     linha02 = int(image[linha,coluna-1, canal])*mascara[3]   + int(image[linha,coluna, canal])*mascara[4]    + int(image[linha,coluna+1, canal])*mascara[5]
                     linha03 = int(image[linha+1,coluna-1, canal])*mascara[6] + int(image[linha+1,coluna, canal])*mascara[7]  + int(image[linha+1,coluna+1, canal])*mascara[8] 
                     result[linha-1,coluna-1,canal] = (linha01+linha02+linha03)/9
-    
-    cv2.imshow('Imagem', image)
-    cv2.imshow('Filtro convolucao - ----------', result)
-    cv2.waitKey(0)
+    return result
     
 
 if (__name__ == '__main'):
