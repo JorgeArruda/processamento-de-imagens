@@ -3,6 +3,11 @@
 import numpy
 from cv2 import cv2
 import random
+# Dithering:
+#     - Básico
+#     - Aleatório
+#     - Periódico
+#     - Aperiódico(Floyd-Steimberg)
 
 foto_01 = cv2.imread('Imagens/foto01.png', cv2.IMREAD_GRAYSCALE)
 foto_02 = cv2.imread('Imagens/foto02.png')
@@ -15,20 +20,20 @@ rosa_gray = cv2.imread('Imagens/rosa.png', cv2.IMREAD_GRAYSCALE)
 girl = cv2.imread('Imagens/foto02.png')
 girl_gray = cv2.imread('Imagens/foto02.png', cv2.IMREAD_GRAYSCALE)
 
-def dithering_basico(image):
+def dithering_basico(image, limiar=127):
     print("Image dimensions ",image.shape)
     
     if len(image.shape) == 2:
         result = numpy.zeros((image.shape[0],image.shape[1]), numpy.uint8)
         for linha in range(1,image.shape[0]):
             for coluna in range(1,image.shape[1]):
-                result[linha,coluna] = 0 if image[linha,coluna] <= 127 else 255
+                result[linha,coluna] = 255 if image[linha,coluna] <= limiar else 1
     else:
         result = numpy.zeros((image.shape[0],image.shape[1],image.shape[2]), numpy.uint8)
         for linha in range(1,image.shape[0]):
             for coluna in range(1,image.shape[1]):
                 for canal in range(0,image.shape[2]):
-                    result[linha,coluna,canal] = 0 if image[linha,coluna,canal] <= 127 else 255
+                    result[linha,coluna,canal] = 255 if image[linha,coluna,canal] <= limiar else 1
     return result
 
 def dithering_random(image, rangee=(-60,60)):

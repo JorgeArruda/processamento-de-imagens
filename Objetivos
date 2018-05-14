@@ -24,9 +24,9 @@
         - Isotrópico                ok       
     Dithering:
         - Básico                    ok
-        - Aleatório
+        - Aleatório                 ok
         - Periódico
         - Aperiódico(Floyd-Steimberg)
-    Segmentação por limiarização iterativa:
+    Segmentação por limiarização iterativa:                 ok
     Segmentação por limiarização watersheds:
     Segmentação por limiarização por Template Matching:
