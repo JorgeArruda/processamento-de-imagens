@@ -3,6 +3,16 @@
 # Atividade 01 Operações
 import numpy
 from cv2 import cv2
+from atividade05 import dithering_basico
+from atividade06 import segmentar_iterativo
+
+bird = cv2.imread('Imagens/bird.png', cv2.IMREAD_GRAYSCALE)
+dragonite = cv2.imread('Imagens/dragonite.png', cv2.IMREAD_GRAYSCALE)
+girl = cv2.imread('Imagens/girl1.png', cv2.IMREAD_GRAYSCALE)
+rosa = cv2.imread('Imagens/rosa1.png', cv2.IMREAD_GRAYSCALE)
+text = cv2.imread('Imagens/text33.png', cv2.IMREAD_GRAYSCALE)
+circulo = cv2.imread('Imagens/circulo.png', cv2.IMREAD_GRAYSCALE)
+quadrado = cv2.imread('Imagens/quadrado.png', cv2.IMREAD_GRAYSCALE)
 
 def image_add(image01, image02):
     if image01.shape[0] == image02.shape[0] and image01.shape[1] == image02.shape[1]:
@@ -137,3 +147,76 @@ def image_div(image01, image02):
     else:
         print('As imagens não possuem tamanhos iguais')
         return image01
+
+def image_or(image01, image02, truefalse=[0, 255]):
+    if image01.shape[0] == image02.shape[0] and image01.shape[1] == image02.shape[1]:
+        print('Image 01: ', image01.shape)
+        print('Image 02: ', image02.shape)
+        result = numpy.array(image01)
+        for linha in range(0, image01.shape[0]):
+            for coluna in range(0, image01.shape[1]): 
+                if ( (image01[linha,coluna]==0) or (image02[linha,coluna]==0)):
+                    result[linha,coluna] = truefalse[0]
+                else:
+                    result[linha,coluna] = truefalse[1]
+        return result
+    else:
+        print('As imagens não possuem tamanhos iguais')
+        return image01
+
+def image_and(image01, image02, truefalse=[0, 255]):
+    if image01.shape[0] == image02.shape[0] and image01.shape[1] == image02.shape[1]:
+        print('Image 01: ', image01.shape)
+        print('Image 02: ', image02.shape)
+        result = numpy.array(image01)
+        for linha in range(0, image01.shape[0]):
+            for coluna in range(0, image01.shape[1]): 
+                if ( (image01[linha,coluna]==0) and (image02[linha,coluna]==0)):
+                    result[linha,coluna] = truefalse[0]
+                else:
+                    result[linha,coluna] = truefalse[1]
+        return result
+    else:
+        print('As imagens não possuem tamanhos iguais')
+        return image01
+
+def image_xor(image01, image02, truefalse=[0, 255]):
+    if image01.shape[0] == image02.shape[0] and image01.shape[1] == image02.shape[1]:
+        print('Image 01: ', image01.shape)
+        print('Image 02: ', image02.shape)
+        result = numpy.array(image01)
+        for linha in range(0, image01.shape[0]):
+            for coluna in range(0, image01.shape[1]): 
+                if ( not((image01[linha,coluna]==0) or (image02[linha,coluna]==0)) ):
+                    result[linha,coluna] = truefalse[0]
+                else:
+                    result[linha,coluna] = truefalse[1]
+        return result
+    else:
+        print('As imagens não possuem tamanhos iguais')
+        return image01
+
+def image_not(image, truefalse=[0, 255]):
+    print('Image: ', image.shape)
+    result = numpy.array(image)
+    for linha in range(0, image.shape[0]):
+        for coluna in range(0, image.shape[1]): 
+            if ( not( (image[linha,coluna]==0) ) ):
+                result[linha,coluna] = truefalse[0]
+            else:
+                result[linha,coluna] = truefalse[1]
+    return result
+
+if __name__=='__main__':
+    lessgreater = [255, 0]
+    lessgreater1 = [0, 255]
+    image01 = dithering_basico(rosa, lessgreater1)
+    image02 = segmentar_iterativo(circulo, lessgreater1)
+    cv2.imshow('Image 01', image01)
+    cv2.imshow('Image 02', image02)
+
+    result = image_not(image01)
+    cv2.imshow('NOT Image 01', result) 
+    
+    cv2.waitKey(0)
+     

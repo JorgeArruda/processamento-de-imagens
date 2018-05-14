@@ -52,7 +52,7 @@ def media(elements):
         result += item
     return result/len(elements)
 
-def segmentar_iterativo(image, variacao=0.1):
+def segmentar_iterativo(image, lessgreater=[0, 255], variacao=0.1):
     limiar = numpy.average(image)
     print('\tLimiar:', limiar,'\n')
     while (True):
@@ -66,7 +66,7 @@ def segmentar_iterativo(image, variacao=0.1):
         print('\tLimiar:', limiar,'\n')
     print('\tLimiar:', limiar,'\n')
 
-    return dithering_basico(image, limiar)
+    return dithering_basico(image, lessgreater,limiar)
 
     
 if __name__=='__main__':

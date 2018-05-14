@@ -4,9 +4,9 @@
         - Subtração         ok
         - Multiplicação     ok
         - Divisão           ok
-        - and               
-        - or
-        - xor
+        - and               ok       
+        - or                ok
+        - xor               ok
         - not
     Equalização do Histograma:    
         - Histograma                ok
