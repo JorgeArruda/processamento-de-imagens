@@ -3,10 +3,13 @@
 import numpy
 from cv2 import cv2
 
-from atividade05 import dithering_basico
+from atividade05 import dithering_basico, dithering_random
 
 foto_01 = cv2.imread('Imagens/foto01.png', cv2.IMREAD_GRAYSCALE)
 foto_02 = cv2.imread('Imagens/foto02.png', cv2.IMREAD_GRAYSCALE)
+text_01 = cv2.imread('Imagens/text1.png', cv2.IMREAD_GRAYSCALE)
+text_02 = cv2.imread('Imagens/text2.png', cv2.IMREAD_GRAYSCALE)
+text_03 = cv2.imread('Imagens/text3.jpg', cv2.IMREAD_GRAYSCALE)
 bio_01 = cv2.imread('Imagens/bio01.png', cv2.IMREAD_GRAYSCALE)
 bio_02 = cv2.imread('Imagens/bio02.png', cv2.IMREAD_GRAYSCALE)
 bird = cv2.imread('Imagens/bird.png', cv2.IMREAD_GRAYSCALE)
@@ -41,8 +44,9 @@ def segmentar(image, limiar):
     return (pixels_less, pixels_greater)
 
 def media(elements):
-    if type(elements) != list:
-        return 'Argument invalid'
+    if type(elements) != list or len(elements) == 0:
+        return 0
+
     result = 0
     for item in elements:
         result += item
@@ -66,17 +70,18 @@ def segmentar_iterativo(image, variacao=0.1):
 
     
 if __name__=='__main__':
-    image = foto_01
+    limiar = 127
+    image = text_01
     cv2.imshow('Image 01', image)
-    image_seg = segmentar_iterativo(image)
-    cv2.imshow('Limiarizacao iterativa 01', image_seg)
-    image = bird
+    image_seg = dithering_random(dithering_random(segmentar_iterativo(image)))
+    cv2.imshow('Dithering random 01', image_seg)
+    image = text_03
     cv2.imshow('Image 02', image)
-    image_seg = segmentar_iterativo(image)
-    cv2.imshow('Limiarizacao iterativa 02', image_seg)
-    image = foto_02
-    cv2.imshow('Image 03', image)
-    image_seg = segmentar_iterativo(image)
-    cv2.imshow('Limiarizacao iterativa 03', image_seg)
+    image_seg = dithering_random(dithering_random(segmentar_iterativo(image)))
+    cv2.imshow('Dithering random 02', image_seg)
+    # image = text_02
+    # cv2.imshow('Image 03', image)
+    # image_seg = dithering_random(image)
+    # cv2.imshow('Dithering random 03', image_seg)
     cv2.waitKey(0)    
     

@@ -30,43 +30,51 @@ def print_array(lista):
     plt.bar(x_axis, y_axis, width=width_n, color=bar_color)
     plt.show()
 
-def image_histograma(image01):
-    histograma = []
+def calc_histogam(image):
     histograma = [0] * 256
-    image = numpy.array(image01)
-    print('Histograma(',len(histograma),') vazio:\n',histograma)
-    print('Imagem[',image01.shape[0],'], qt. de pixels ',image01.shape[0]*image01.shape[1],':\n',image01)
-    cv2.imshow('Image01 - Antes', image01)
-
     # Calcular o histograma, contabilizando a quantidade de pixels para cada valor de cor
-    for linha in range(image01.shape[0]):
-        for coluna in range(image01.shape[1]):
-            histograma[image01[linha, coluna]] = histograma[image01[linha, coluna]] + 1
+    for linha in range(image.shape[0]):
+        for coluna in range(image.shape[1]):
+            histograma[image[linha, coluna]] = histograma[image[linha, coluna]] + 1
+    return histograma
 
-    print('\nHistograma:\n',histograma)
-    print_array(histograma)
-
+def calc_histograma_acumulado(histograma):
     # Calcular o histograma acumulador
     for x in range(1,256):
         histograma[x] = histograma[x-1] + histograma[x]
-    
-    print('\nHistograma acumulado:\n',histograma)
+    return histograma
+
+def calc_histograma_equalizado(histograma, faixa = (0, 255)):
+    # Calcular a equalização do histograma acumulador
+    for x in range(1, len(histograma)):
+        #print ' histograma[x] ', histograma[x], ' image.shape[0]*image.shape[1] ', image.shape[0]*image.shape[1], ' div ', float(float(histograma[x]) / float(image.shape[0]*image.shape[1]))
+        histograma[x] = int(round((faixa[1]-faixa[0]) *( float(histograma[x]) / float(histograma[-1]) ) ))
+
+    return histograma
+
+def image_histograma(image):
+    image = numpy.array(image)
+    print('Imagem[',image.shape[0],'], qt. de pixels ',image.shape[0]*image.shape[1],':\n',image)
+
+    histograma = calc_histogam(image)
+    # print('\nHistograma:\n',histograma)
     print_array(histograma)
 
-    # Calcular a equalização do histograma acumulador
-    for x in range(1,256):
-        #print ' histograma[x] ', histograma[x], ' image01.shape[0]*image01.shape[1] ', image01.shape[0]*image01.shape[1], ' div ', float(float(histograma[x]) / float(image01.shape[0]*image01.shape[1]))
-        histograma[x] = int(round(255 *( float(histograma[x]) / float(image01.shape[0]*image01.shape[1]) ) ))
+    histograma = calc_histograma_acumulado(histograma)
+    print('\nHistograma greater value:\n',histograma[-1])
+    print_array(histograma)
 
-    print('\nHistograma acumulado equalizado:\n',histograma)
-    #print_array(histograma)
+    histograma = calc_histograma_equalizado(histograma)
+    # print('\nHistograma acumulado equalizado:\n',histograma)
+    print_array(histograma)
 
     # Refatorar a imagem, utilizando os valores do histograma equalizado
-    for linha in range(image01.shape[0]):
-        for coluna in range(image01.shape[1]):
-            image01[linha, coluna] = histograma[image01[linha, coluna]]
-            #histograma[image01[linha, coluna]] = histograma[image01[linha, coluna]] + 1
-    cv2.imshow('Image01 - Equalizada', image01)
-    cv2.waitKey(0)
+    for linha in range(image.shape[0]):
+        for coluna in range(image.shape[1]):
+            image[linha, coluna] = histograma[image[linha, coluna]]
+            #histograma[image[linha, coluna]] = histograma[image[linha, coluna]] + 1
+    
+    return image
 
-image_histograma(ima02)
+cv2.imshow('Image ',image_histograma(ima02))
+cv2.waitKey(0)

@@ -20,23 +20,23 @@ rosa_gray = cv2.imread('Imagens/rosa.png', cv2.IMREAD_GRAYSCALE)
 girl = cv2.imread('Imagens/foto02.png')
 girl_gray = cv2.imread('Imagens/foto02.png', cv2.IMREAD_GRAYSCALE)
 
-def dithering_basico(image, limiar=127):
+def dithering_basico(image, limiar=127, blackwhite=(0, 255)):
     print("Image dimensions ",image.shape)
     
     if len(image.shape) == 2:
         result = numpy.zeros((image.shape[0],image.shape[1]), numpy.uint8)
         for linha in range(1,image.shape[0]):
             for coluna in range(1,image.shape[1]):
-                result[linha,coluna] = 255 if image[linha,coluna] <= limiar else 1
+                result[linha,coluna] = blackwhite[0] if image[linha,coluna] <= limiar else blackwhite[1]
     else:
         result = numpy.zeros((image.shape[0],image.shape[1],image.shape[2]), numpy.uint8)
         for linha in range(1,image.shape[0]):
             for coluna in range(1,image.shape[1]):
                 for canal in range(0,image.shape[2]):
-                    result[linha,coluna,canal] = 255 if image[linha,coluna,canal] <= limiar else 1
+                    result[linha,coluna,canal] = blackwhite[0] if image[linha,coluna,canal] <= limiar else blackwhite[1]
     return result
 
-def dithering_random(image, rangee=(-60,60)):
+def dithering_random(image, rangee=(-100,0)):
     print("Image dimensions ",image.shape)
     
     if len(image.shape) == 2:
