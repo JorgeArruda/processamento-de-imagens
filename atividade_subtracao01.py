@@ -80,8 +80,6 @@ def image_sub_03(image01, image02):
             qtd_canais = image01.shape[2]
 
         print 'Linhas X Colunas: ', image01.shape[0],'  ',image02.shape[1]
-        cv2.imshow("Image01", image01) # Mostrar imagem
-        cv2.imshow("Image02", image02) # Mostrar imagem
 
         #temp = [ [ [0] * image01.shape[2] ]  * image01.shape[1] ] * image01.shape[0] # array[num. de linhas][num. de colunas][num. de canais]
         temp = []
@@ -120,10 +118,6 @@ def image_sub_03(image01, image02):
                         result[linha,coluna] = constante[canal] * (temp[linha][coluna][canal] - min[canal])
                     else:
                         result[linha,coluna,canal] = constante[canal] * (temp[linha][coluna][canal] - min[canal])
-                    
-
-        cv2.imshow("Subtracao 03, normalizada", result) # Mostrar imagem
-        cv2.waitKey(0)
         return result
     else:
         print 'As imagens não possuem tamanhos iguais'

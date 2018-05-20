@@ -7,7 +7,7 @@
         - and               ok       
         - or                ok
         - xor               ok
-        - not
+        - not               ok
     Equalização do Histograma:    
         - Histograma                ok
         - Histograma acumulado      ok
@@ -23,10 +23,10 @@
         - Roberts                   ok
         - Isotrópico                ok       
     Dithering:
-        - Básico                    ok
-        - Aleatório                 ok
-        - Periódico
-        - Aperiódico(Floyd-Steimberg)
+        - Básico                        ok
+        - Aleatório                     ok
+        - Periódico                     ok
+        - Aperiódico(Floyd-Steimberg)   ok
     Segmentação por limiarização iterativa:                 ok
     Segmentação por limiarização watersheds:
     Segmentação por limiarização por Template Matching:

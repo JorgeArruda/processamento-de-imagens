@@ -1,21 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Atividade 02 Histograma
 import numpy
 from cv2 import cv2
 import matplotlib.pyplot as plt
-#import pandas
+# Atividade 02 Histograma
+# Jorge de Arruda Martins
 
 bird = cv2.imread('Imagens/bird.png')
 dragonite = cv2.imread('Imagens/dragonite.png')
 bird_01 = cv2.imread('Imagens/bird.png', cv2.IMREAD_GRAYSCALE)
 dragonite_01 = cv2.imread('Imagens/dragonite.png', cv2.IMREAD_GRAYSCALE)
-
+girl_gray = cv2.imread('Imagens/girl1.png', cv2.IMREAD_GRAYSCALE)
+rosa_gray = cv2.imread('Imagens/rosa1.png', cv2.IMREAD_GRAYSCALE)
 print('Bird   [Linhas, Colunas, Canais]: ', bird.shape)
 print('Dragonite [Linhas, Colunas, Canais]: ', dragonite.shape)
 
 ima01 = cv2.imread('Imagens/ima01.png')
-ima02 = cv2.imread('Imagens/ima01.png', cv2.IMREAD_GRAYSCALE)
+ima02 = cv2.imread('Imagens/ima03.png', cv2.IMREAD_GRAYSCALE)
 
 print('ima01: ',ima01.shape)
 print('ima02: ',ima02.shape)
@@ -74,8 +75,12 @@ def image_histograma(image):
             image[linha, coluna] = histograma[image[linha, coluna]]
             #histograma[image[linha, coluna]] = histograma[image[linha, coluna]] + 1
     
+    histograma = calc_histogama(image)
+    # print('\nHistograma:\n',histograma)
+    print_array(histograma)
     return image
 
 if __name__=='__main__':
-    cv2.imshow('Image ',image_histograma(ima02))
+    cv2.imshow('Imagem', girl_gray)
+    cv2.imshow('Imagem equalizada',image_histograma(girl_gray))
     cv2.waitKey(0)

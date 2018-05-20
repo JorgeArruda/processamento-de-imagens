@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# Atividade 03 Convolução
 import numpy
 from cv2 import cv2
+# Atividade 03 Convolução
+# Jorge de Arruda Martins
 
 bird = cv2.imread('Imagens/bird.png')
 dragonite = cv2.imread('Imagens/dragonite.png')
-osw = cv2.imread('Imagens/osw.png')
 bird_01 = cv2.imread('Imagens/bird.png', cv2.IMREAD_GRAYSCALE)
 dragonite_01 = cv2.imread('Imagens/dragonite.png', cv2.IMREAD_GRAYSCALE)
-foto_01 = cv2.imread('Imagens/foto01.png')
-foto_02 = cv2.imread('Imagens/foto01.png', cv2.IMREAD_GRAYSCALE)
-circuito_01 = cv2.imread('Imagens/circuito.png')
-circuito_02 = cv2.imread('Imagens/circuito.png', cv2.IMREAD_GRAYSCALE)
+girl_gray = cv2.imread('Imagens/girl1.png', cv2.IMREAD_GRAYSCALE)
+rosa_gray = cv2.imread('Imagens/rosa1.png', cv2.IMREAD_GRAYSCALE)
+rosa = cv2.imread('Imagens/rosa1.png')
 
 print('Bird   [Linhas, Colunas, Canais]: ', bird.shape)
 print('Dragonite [Linhas, Colunas, Canais]: ', dragonite.shape)
@@ -91,6 +90,10 @@ def filtro_mediana(image):
         for linha in range(1,image.shape[0]-1):
             for coluna in range(1,image.shape[1]-1):
                 roll = [ image[linha-1,coluna-1], image[linha-1,coluna], image[linha-1,coluna+1], image[linha,coluna-1], image[linha,coluna], image[linha,coluna+1], image[linha+1,coluna-1], image[linha+1,coluna], image[linha+1,coluna+1] ]
+                linha01 = int(image[linha-1,coluna-1]) + int(image[linha-1,coluna]) + int(image[linha-1,coluna+1])
+                linha02 = int(image[linha,coluna-1])   + int(image[linha,coluna])   + int(image[linha,coluna+1])
+                linha03 = int(image[linha+1,coluna-1]) + int(image[linha+1,coluna]) + int(image[linha+1,coluna+1])
+                result[linha-1,coluna-1] = (linha01+linha02+linha03)/9 
                 roll.sort() # Ordena a lista
                 result[linha-1,coluna-1] = roll[4] # Mediana
     else:
@@ -141,7 +144,7 @@ def filtro_passaalta(image):
     image = addZero(image)
     print("\n Imagem(addZeros) ", image.shape)
 
-    mascara = (-1,-1,-1, -1,8,-1, -1,-1,-1)
+    mascara = (-1,-1,-1, -1,1,-1, -1,-1,-1)
     if len(image.shape) == 2:
         result = numpy.zeros((image.shape[0]-2,image.shape[1]-2), numpy.uint8)
         for linha in range(1,image.shape[0]-1):
@@ -191,16 +194,8 @@ def filtro_convolucao(image):
     return result
     
 
-if (__name__ == '__main'):
-    #filtro_passabaixa(foto_01)
-    #filtro_mediana(foto_01) 
-    filtro_convolucao(foto_01)
-    filtro_gaussiano(foto_01)
-
-    """print "Teste"
-    result = numpy.zeros((3,3,3), numpy.uint8)
-    for linha in range(result.shape[0]):
-        for coluna in range(result.shape[1]):
-            result[linha, coluna] = 9
-    print result
-    addZero(result)"""
+if (__name__ == '__main__'):
+    image = bird
+    cv2.imshow('Imagem', image)
+    cv2.imshow('Imagem - Passa-alta',filtro_passaalta(image))
+    cv2.waitKey(0)

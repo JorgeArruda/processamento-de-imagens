@@ -6,7 +6,9 @@ from cv2 import cv2
 from atividade02 import print_array, calc_histogama, image_histograma
 from atividade03 import filtro_mediana, filtro_gaussiano, filtro_passaalta, filtro_convolucao
 from atividade05 import dithering_basico, dithering_random
+from atividade06 import segmentar_iterativo
 
+coin = cv2.imread('Imagens/coins.jpg', cv2.IMREAD_GRAYSCALE)
 foto_01 = cv2.imread('Imagens/foto01.png', cv2.IMREAD_GRAYSCALE)
 foto_02 = cv2.imread('Imagens/foto02.png', cv2.IMREAD_GRAYSCALE)
 text_01 = cv2.imread('Imagens/text1.png', cv2.IMREAD_GRAYSCALE)
@@ -48,13 +50,17 @@ def calc_pos_min(image, minimo):
     return pos_minimo
 
 if __name__=='__main__':
-    image = foto_01
+    image = coin
     cv2.imshow('Image', image)
-    histograma = calc_histogama(image)
-    print_array(histograma)
-    minimo = calc_min(histograma)
-    print('image original', minimo)
-    calc_pos_min(image, minimo[-2])
+    image_seg = segmentar_iterativo(image, [255, 0])
+    markers = cv2.watershed(image, markers)
+
+    cv2.imshow('Image Binaria', image_seg)
+    # histograma = calc_histogama(image_seg)
+    # # print_array(histograma)
+    # minimo = calc_min(histograma)
+    # print('image original', minimo)
+    # calc_pos_min(image_seg, minimo[-2])
 
 
     # image = filtro_gaussiano(image)
