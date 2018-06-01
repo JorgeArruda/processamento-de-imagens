@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import numpy
 from cv2 import cv2
+from atividade01 import image_add_01
 # Atividade 03 Convolução
 # Jorge de Arruda Martins
 
@@ -144,7 +145,8 @@ def filtro_passaalta(image):
     image = addZero(image)
     print("\n Imagem(addZeros) ", image.shape)
 
-    mascara = (-1,-1,-1, -1,1,-1, -1,-1,-1)
+    mascara = (-1,-1,-1, -1,9,-1, -1,-1,-1)
+    # mascara = ( 0,-1,0, -1,5,-1, 0,-1,0)
     if len(image.shape) == 2:
         result = numpy.zeros((image.shape[0]-2,image.shape[1]-2), numpy.uint8)
         for linha in range(1,image.shape[0]-1):
@@ -193,9 +195,9 @@ def filtro_convolucao(image):
                     result[linha-1,coluna-1,canal] = (linha01+linha02+linha03)/9
     return result
     
-
 if (__name__ == '__main__'):
     image = bird
     cv2.imshow('Imagem', image)
+    cv2.imshow('Imagem - Passa-alta',filtro_passaalta(image))
     cv2.imshow('Imagem - Passa-alta',filtro_passaalta(image))
     cv2.waitKey(0)
