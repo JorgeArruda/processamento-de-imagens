@@ -26,22 +26,23 @@ def segmentar(image, limiar):
     pixels_less = []
     pixels_greater = []
     if len(image.shape) == 2:
-        for linha in range(1,image.shape[0]):
-            for coluna in range(1,image.shape[1]):
-                if image[linha,coluna] <= limiar:
-                    pixels_less.append(image[linha,coluna])
+        for linha in range(1, image.shape[0]):
+            for coluna in range(1, image.shape[1]):
+                if image[linha, coluna] <= limiar:
+                    pixels_less.append(image[linha, coluna])
                 else:
-                    pixels_greater.append(image[linha,coluna])
+                    pixels_greater.append(image[linha, coluna])
     # else:
-    #     for linha in range(1,image.shape[0]):
-    #         for coluna in range(1,image.shape[1]):
-    #             for canal in range(0,image.shape[2]):
+    #     for linha in range(1, image.shape[0]):
+    #         for coluna in range(1, image.shape[1]):
+    #             for canal in range(0, image.shape[2]):
     #                 if image[linha, coluna, canal] <= limiar:
-    #                     pixels_less.append(image[linha, coluna ,canal])
+    #                     pixels_less.append(image[linha, coluna. canal])
     #                 else:
     #                     pixels_greater.append(image[linha, coluna, canal])    return result
 
     return (pixels_less, pixels_greater)
+
 
 def media(elements):
     if type(elements) != list or len(elements) == 0:
@@ -52,24 +53,25 @@ def media(elements):
         result += item
     return result/len(elements)
 
+
 def segmentar_iterativo(image, lessgreater=[0, 255], variacao=0.1):
     limiar = numpy.average(image)
-    print('\tLimiar:', limiar,'\n')
+    print('\tLimiar:', limiar, '\n')
     while (True):
         (pixels_less, pixels_greater) = segmentar(image, limiar)
-        med = ( media(pixels_less) , media(pixels_greater) )
+        med = (media(pixels_less), media(pixels_greater))
         print('Media pixels_less: ', med[0])
         print('Media pixels_greater: ', med[1])
-        if abs(limiar - ( med[0]+med[1] )/2) <= 10:
+        if abs(limiar - (med[0]+med[1])/2) <= 10:
             break
-        limiar = ( med[0] + med[1] ) / 2
-        print('\tLimiar:', limiar,'\n')
-    print('\tLimiar:', limiar,'\n')
+        limiar = (med[0] + med[1]) / 2
+        print('\tLimiar:', limiar, '\n')
+    print('\tLimiar:', limiar, '\n')
 
-    return dithering_basico(image, lessgreater,limiar)
+    return dithering_basico(image, lessgreater, limiar)
 
-    
-if __name__=='__main__':
+
+if __name__ == '__main__':
     limiar = 127
     image = text_01
     cv2.imshow('Image 01', image)
@@ -83,5 +85,4 @@ if __name__=='__main__':
     # cv2.imshow('Image 03', image)
     # image_seg = dithering_random(image)
     # cv2.imshow('Dithering random 03', image_seg)
-    cv2.waitKey(0)    
-    
+    cv2.waitKey(0)

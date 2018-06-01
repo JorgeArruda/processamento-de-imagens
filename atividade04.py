@@ -66,13 +66,13 @@ def addZero(matrix):
 def apply_mascara(image, mascara, linha, coluna, canal=-1):
     if len(image.shape) == 2:
         linha01 = int(image[linha-1, coluna-1])*mascara[0] + int(image[linha-1, coluna])*mascara[1] + int(image[linha-1, coluna+1])*mascara[2]
-        linha02 = int(image[linha, coluna-1])*mascara[3]   + int(image[linha, coluna])*mascara[4]   + int(image[linha, coluna+1])*mascara[5]
+        linha02 = int(image[linha, coluna-1])*mascara[3] + int(image[linha, coluna])*mascara[4] + int(image[linha, coluna+1])*mascara[5]
         linha03 = int(image[linha+1, coluna-1])*mascara[6] + int(image[linha+1, coluna])*mascara[6] + int(image[linha+1, coluna+1])*mascara[8]
         return linha01+linha02+linha03
     elif canal != -1:
-        linha01 = int(image[linha-1, coluna-1, canal])*mascara[0] + int(image[linha-1, coluna, canal])*mascara[1]  + int(image[linha-1, coluna+1, canal])*mascara[2]
-        linha02 = int(image[linha, coluna-1, canal])*mascara[3]   + int(image[linha, coluna, canal])*mascara[4]    + int(image[linha, coluna+1, canal])*mascara[5]
-        linha03 = int(image[linha+1, coluna-1, canal])*mascara[6] + int(image[linha+1, coluna, canal])*mascara[7]  + int(image[linha+1, coluna+1, canal])*mascara[8]
+        linha01 = int(image[linha-1, coluna-1, canal])*mascara[0] + int(image[linha-1, coluna, canal])*mascara[1] + int(image[linha-1, coluna+1, canal])*mascara[2]
+        linha02 = int(image[linha, coluna-1, canal])*mascara[3] + int(image[linha, coluna, canal])*mascara[4] + int(image[linha, coluna+1, canal])*mascara[5]
+        linha03 = int(image[linha+1, coluna-1, canal])*mascara[6] + int(image[linha+1, coluna, canal])*mascara[7] + int(image[linha+1, coluna+1, canal])*mascara[8]
         return linha01+linha02+linha03
 
 
