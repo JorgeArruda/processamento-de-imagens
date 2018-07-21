@@ -18,6 +18,8 @@ rosa = cv2.imread('Imagens/rosa.png')
 rosa_gray = cv2.imread('Imagens/rosa.png', cv2.IMREAD_GRAYSCALE)
 girl = cv2.imread('Imagens/foto02.png')
 girl_gray = cv2.imread('Imagens/foto02.png', cv2.IMREAD_GRAYSCALE)
+coin = cv2.imread('Imagens/coins.jpg')
+coin_c = cv2.imread('Imagens/coins.jpg', cv2.IMREAD_GRAYSCALE)
 
 
 def segmentar(image, limiar):
@@ -32,15 +34,6 @@ def segmentar(image, limiar):
                     pixels_less.append(image[linha, coluna])
                 else:
                     pixels_greater.append(image[linha, coluna])
-    # else:
-    #     for linha in range(1, image.shape[0]):
-    #         for coluna in range(1, image.shape[1]):
-    #             for canal in range(0, image.shape[2]):
-    #                 if image[linha, coluna, canal] <= limiar:
-    #                     pixels_less.append(image[linha, coluna. canal])
-    #                 else:
-    #                     pixels_greater.append(image[linha, coluna, canal])    return result
-
     return (pixels_less, pixels_greater)
 
 
@@ -62,7 +55,7 @@ def segmentar_iterativo(image, lessgreater=[0, 255], variacao=0.1):
         med = (media(pixels_less), media(pixels_greater))
         print('Media pixels_less: ', med[0])
         print('Media pixels_greater: ', med[1])
-        if abs(limiar - (med[0]+med[1])/2) <= 10:
+        if abs(limiar - (med[0]+med[1])/2) <= variacao:
             break
         limiar = (med[0] + med[1]) / 2
         print('\tLimiar:', limiar, '\n')
@@ -73,14 +66,14 @@ def segmentar_iterativo(image, lessgreater=[0, 255], variacao=0.1):
 
 if __name__ == '__main__':
     limiar = 127
-    image = text_01
-    cv2.imshow('Image 01', image)
-    image_seg = dithering_random(dithering_random(segmentar_iterativo(image)))
-    cv2.imshow('Dithering random 01', image_seg)
-    image = text_03
-    cv2.imshow('Image 02', image)
-    image_seg = dithering_random(dithering_random(segmentar_iterativo(image)))
-    cv2.imshow('Dithering random 02', image_seg)
+    image = coin_c
+    cv2.imshow('Image 05', image)
+    image_seg = segmentar_iterativo(image)
+    cv2.imshow('Seg. Limiarizacao iterativa', image_seg)
+    # image = girl_gray
+    # cv2.imshow('Image 02', image)
+    # image_seg = segmentar_iterativo(image)
+    # cv2.imshow('Seg. Limiarizacao iterativa', image_seg)
     # image = text_02
     # cv2.imshow('Image 03', image)
     # image_seg = dithering_random(image)

@@ -12,14 +12,16 @@ import random
 bio = cv2.imread('Imagens/bio01.png')
 bio_c = cv2.imread('Imagens/bio01.png', cv2.IMREAD_GRAYSCALE)
 
+gray = cv2.imread('Imagens/gray300.png', cv2.IMREAD_GRAYSCALE)
+
 bird = cv2.imread('Imagens/bird.png')
 bird_c = cv2.imread('Imagens/bird.png', cv2.IMREAD_GRAYSCALE)
 
 dragonite = cv2.imread('Imagens/dragonite.png')
 dragonite_c = cv2.imread('Imagens/dragonite.png', cv2.IMREAD_GRAYSCALE)
 
-rosa = cv2.imread('Imagens/rosa.png')
-rosa_c = cv2.imread('Imagens/rosa.png', cv2.IMREAD_GRAYSCALE)
+rosa = cv2.imread('Imagens/rosa1.png')
+rosa_c = cv2.imread('Imagens/rosa1.png', cv2.IMREAD_GRAYSCALE)
 
 girl = cv2.imread('Imagens/girl1.png')
 girl_c = cv2.imread('Imagens/girl1.png', cv2.IMREAD_GRAYSCALE)
@@ -99,24 +101,28 @@ def dithering_aperiodico(image):
         for linha in range(1, image.shape[0]-1):
             for coluna in range(1, image.shape[1]-1):
                 if (image[linha, coluna] < threshold):
-                    error = black - image[linha, coluna]
-                    image[linha, coluna] = black
+                    result[linha, coluna] = black
                 else:
-                    error = white - image[linha, coluna]
-                    image[linha, coluna] = white
-                image[linha+1, coluna] += round((7/16)*error)
-                image[linha, coluna+1] += round((5/16)*error)
-                image[linha+1, coluna+1] += round((1/16)*error)
-                image[linha, coluna+1] += round((3/16)*error)
-
+                    result[linha, coluna] = white
+                error = float(image[linha, coluna]) - float(result[linha, coluna])
+                # image[linha+1, coluna] +=   int((7.0/16.0)*error)
+                # image[linha, coluna+1] +=   int((5.0/16.0)*error)
+                # image[linha+1, coluna+1] += int((1.0/16.0)*error)
+                # image[linha+1, coluna-1] += int((3.0/16.0)*error)
+                image[linha+1, coluna] +=   int((3.0/8.0)*error)
+                image[linha, coluna+1] +=   int((3.0/8.0)*error)
+                image[linha+1, coluna+1] += int((2.0/8.0)*error)
     return result
 
 
 if (__name__ == '__main__'):
-    image = rosa
-    cv2.imshow('Image', image)
+    # image = rosa
+    # cv2.imshow('Image', image)
 
-    image = girl_c
-    cv2.imshow('Image grayscale', image)
-    cv2.imshow('Dithering aperiodico - grayscale', dithering_aperiodico(image))
+    image = rosa_c
+    cv2.imshow('Image', image)
+    # cv2.imshow('Dithering basico', dithering_basico(image))
+    # cv2.imshow('Dithering aleatorio', dithering_random(image))
+    # cv2.imshow('Dithering periodico', dithering_periodico(image))
+    # cv2.imshow('Dithering aperiodico', dithering_aperiodico(image))
     cv2.waitKey(0)
